@@ -45,16 +45,16 @@ def face_blurring(image,blur_type,blocks=3):
 
 if __name__=='__main__':
     ap = argparse.ArgumentParser()
-    ap.add_argument("image", required=True, help="path to input image")
-    ap.add_argument("output", required=True, help="path to output image")
-    ap.add_argument("blur_type",type=str, default="simple",choices=["simple", "pixelated"],
+    ap.add_argument("--image", required=True, help="path to input image")
+    ap.add_argument("--output", required=True, help="path to output image")
+    ap.add_argument("--blur_type",type=str, default="simple",choices=["simple", "pixelate"],
 	help="face blurring/anonymizing method")
-    ap.add_argument("blocks", type=int, default=15, help="# of blocks for the pixelated blurring method")
+    ap.add_argument("--blocks", type=int, default=15, help="# of blocks for the pixelated blurring method")
     args = vars(ap.parse_args())
-    img = cv2.imread(args.image)
+    img = cv2.imread(args['image'])
     start_time = time.time()
-    output=face_blurring(img,ap.blur_type,ap.blocks)
+    output=face_blurring(img,args['blur_type'],args['blocks'])
     end_time = time.time()
     t = end_time-start_time
     print('time: {0}s'.format(t))
-    cv2.imwrite(args.output, output)
+    cv2.imwrite(args['output'], output)
