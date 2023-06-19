@@ -3,8 +3,8 @@ import numpy as np
 import time
 import argparse
 
-prototxt_path='src/deploy.prototxt.txt'
-caffemodel_path='src/weights.caffemodel'
+prototxt_path='Automated_face_blurring/src/deploy.prototxt.txt'
+caffemodel_path='Automated_face_blurring/src/weights.caffemodel'
 CONFIDENCE=0.5
 
 model = cv2.dnn.readNetFromCaffe(prototxt_path, caffemodel_path)
@@ -36,6 +36,8 @@ def face_blurring(image,blur_type,blocks=3):
             box=detections[0, 0, i, 3:7]*np.array([w, h, w, h])
             (startX, startY, endX, endY) = box.astype("int")
             face=img_copy[startY:endY,startX:endX]
+            if face.size==0:
+                continue
             if(blur_type=="pixelate"):
                 face=face_pixelate(face,blocks)
             else:
