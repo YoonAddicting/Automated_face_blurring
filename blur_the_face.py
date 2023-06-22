@@ -1,7 +1,7 @@
+import argparse
+import time
 import cv2
 import numpy as np
-import time
-import argparse
 
 prototxt_path='Automated_face_blurring/src/deploy.prototxt.txt'
 caffemodel_path='Automated_face_blurring/src/weights.caffemodel'
